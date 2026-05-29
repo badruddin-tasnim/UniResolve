@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Review Complaint — UniResolve Admin</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="dashboard-layout">
+
+  <!-- ===== SIDEBAR ===== -->
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <a href="admin-dashboard.html" class="logo">
+        <span class="logo-icon"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M8.00008 6V9H5.00008V6H8.00008ZM3.00008 4V11H10.0001V4H3.00008ZM13.0001 4H21.0001V6H13.0001V4ZM13.0001 11H21.0001V13H13.0001V11ZM13.0001 18H21.0001V20H13.0001V18ZM10.7072 16.2071L9.29297 14.7929L6.00008 18.0858L4.20718 16.2929L2.79297 17.7071L6.00008 20.9142L10.7072 16.2071Z"></path></svg></span>
+        UniResolve
+      </a>
+    </div>
+
+    <div class="sidebar-label">Admin Panel</div>
+
+    <nav>
+      <a href="admin-dashboard.html" class="nav-link">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+        Overview
+      </a>
+      <a href="admin-complaints.html" class="nav-link active">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+        All Complaints
+      </a>
+    </nav>
+
+    <div class="sidebar-footer">
+      <div style="display:flex; align-items:center; gap:0.75rem; padding:0.875rem; background:rgba(255,255,255,0.06); border-radius:var(--radius-sm); margin-bottom:0.75rem;">
+        <div style="width:34px; height:34px; border-radius:50%; background:#4f46e5; display:flex; align-items:center; justify-content:center; flex-shrink:0;">
+          <span style="font-family:'Google Sans',sans-serif; font-size:0.85rem; font-weight:700; color:#fff;">AD</span>
+        </div>
+        <div style="min-width:0;">
+          <p style="font-size:0.875rem; font-weight:600; color:#fff;">Admin</p>
+          <p style="font-size:0.75rem; color:rgba(255,255,255,0.45);">Administrator</p>
+        </div>
+      </div>
+      <button onclick="logout()" class="btn btn-outline" style="width:100%;">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+        Log Out
+      </button>
+    </div>
+  </aside>
+
+  <!-- ===== MAIN CONTENT ===== -->
+  <main class="main-content">
+
+    <!-- Back link -->
+    <a href="admin-complaints.html" class="back-link">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+      Back to All Complaints
+    </a>
+
+    <!-- Two-column layout -->
+    <div style="display:grid; grid-template-columns:1fr 300px; gap:1.5rem; align-items:start;">
+
+      <!-- ── LEFT: Complaint Detail Card ── -->
+      <div class="card" style="max-width:100%;">
+
+        <!-- Title row -->
+        <div class="detail-title-row">
+          <h1 id="detail-title">Loading...</h1>
+          <span id="detail-status-badge" class="badge badge-pending">Pending</span>
+        </div>
+
+        <!-- Meta row -->
+        <div class="detail-meta">
+          <div class="detail-meta-item">
+            <label>Complaint ID</label>
+            <span id="detail-id" style="font-family:'Google Sans',sans-serif; color:var(--primary);">#CMP-001</span>
+          </div>
+          <div class="detail-meta-item">
+            <label>Category</label>
+            <span id="detail-category">—</span>
+          </div>
+          <div class="detail-meta-item">
+            <label>Submitted By</label>
+            <span id="detail-user">—</span>
+          </div>
+          <div class="detail-meta-item">
+            <label>Date Submitted</label>
+            <span id="detail-date">—</span>
+          </div>
+        </div>
+
+        <!-- Description -->
+        <p class="detail-body-label">Description</p>
+        <div class="detail-body-text" id="detail-description">
+          Loading description...
+        </div>
+
+        <!-- Admin note: this is the full complaint, read-only -->
+        <div style="display:flex; align-items:flex-start; gap:0.875rem; background:#fefce8; border:1px solid #fde68a; border-radius:var(--radius); padding:1rem 1.25rem;">
+          <svg style="flex-shrink:0; margin-top:1px;" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#d97706" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+          <p style="font-size:0.85rem; color:#92400e; line-height:1.55;">
+            Updating the status will immediately notify the student. Please ensure the correct status is selected before saving.
+          </p>
+        </div>
+
+      </div>
+
+      <!-- ── RIGHT SIDEBAR ── -->
+      <div style="display:flex; flex-direction:column; gap:1.25rem;">
+
+        <!-- Update Status Card -->
+        <div class="card" style="padding:1.5rem;">
+          <h3 style="font-size:0.95rem; font-weight:700; color:var(--text-heading); margin-bottom:0.25rem;">Update Status</h3>
+          <p style="font-size:0.8rem; color:var(--text-muted); margin-bottom:0.25rem;">Select a new status for this complaint.</p>
+
+          <form id="admin-update-form">
+
+            <div class="status-options">
+
+              <!-- Pending -->
+              <input type="radio" name="status" id="status-pending" value="pending" class="status-radio">
+              <label for="status-pending" class="status-option-label">
+                <span class="status-dot" style="background:#f59e0b;"></span>
+                <div class="status-option-text">
+                  <strong>Pending</strong>
+                  <span>Awaiting review</span>
+                </div>
+                <span class="status-radio-indicator"></span>
+              </label>
+
+              <!-- In Progress -->
+              <input type="radio" name="status" id="status-in_progress" value="in_progress" class="status-radio">
+              <label for="status-in_progress" class="status-option-label">
+                <span class="status-dot" style="background:#4f46e5;"></span>
+                <div class="status-option-text">
+                  <strong>In Progress</strong>
+                  <span>Actively being worked on</span>
+                </div>
+                <span class="status-radio-indicator"></span>
+              </label>
+
+              <!-- Resolved -->
+              <input type="radio" name="status" id="status-resolved" value="resolved" class="status-radio">
+              <label for="status-resolved" class="status-option-label">
+                <span class="status-dot" style="background:#10b981;"></span>
+                <div class="status-option-text">
+                  <strong>Resolved</strong>
+                  <span>Issue fully addressed</span>
+                </div>
+                <span class="status-radio-indicator"></span>
+              </label>
+
+            </div>
+
+            <!-- Admin comment — shown only when status is in_progress or resolved -->
+            <div id="comment-box" style="display:none; margin-top:1.25rem;">
+              <label style="display:block; font-size:0.78rem; font-weight:700; text-transform:uppercase; letter-spacing:0.06em; color:var(--text-muted); margin-bottom:0.5rem;">
+                Message to Student <span style="color:var(--text-muted); font-weight:400; text-transform:none; letter-spacing:0;">(optional)</span>
+              </label>
+              <textarea
+                id="admin-comment"
+                class="form-control"
+                rows="3"
+                placeholder="e.g. We have assigned a technician and will resolve this by Friday..."
+                style="font-size:0.875rem; resize:vertical;"
+              ></textarea>
+            </div>
+
+            <button type="submit" class="btn btn-primary" style="width:100%; margin-top:1.25rem; justify-content:center;">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
+              Save Status
+            </button>
+
+          </form>
+        </div>
+
+        <!-- Student Info Card -->
+        <div class="card" style="padding:1.5rem;">
+          <h3 style="font-size:0.95rem; font-weight:700; color:var(--text-heading); margin-bottom:1.25rem;">Student Info</h3>
+
+          <!-- Avatar -->
+          <div style="display:flex; align-items:center; gap:0.875rem; margin-bottom:1.25rem; padding-bottom:1.25rem; border-bottom:1px solid var(--border-light);">
+            <div style="width:42px; height:42px; border-radius:50%; background:var(--primary-light); color:var(--primary); font-family:'Google Sans',sans-serif; font-size:1rem; font-weight:700; display:flex; align-items:center; justify-content:center; flex-shrink:0;">
+              <span id="student-avatar-initials">JD</span>
+            </div>
+            <div>
+              <p id="student-info-name" style="font-size:0.9rem; font-weight:700; color:var(--text-heading);">John Doe</p>
+              <p style="font-size:0.78rem; color:var(--text-muted);">Student</p>
+            </div>
+          </div>
+
+          <div>
+            <div class="info-row">
+              <span class="info-row-label">Email</span>
+              <span class="info-row-value" id="student-info-email" style="color:var(--primary); font-size:0.8rem;">student@uni.edu</span>
+            </div>
+            <div class="info-row">
+              <span class="info-row-label">Student ID / Roll</span>
+              <span class="info-row-value" id="student-info-roll">—</span>
+            </div>
+            <div class="info-row">
+              <span class="info-row-label">Submitted</span>
+              <span class="info-row-value" id="student-info-date">—</span>
+            </div>
+          </div>
+
+        </div>
+
+
+
+      </div>
+      <!-- end right sidebar -->
+
+    </div>
+    <!-- end grid -->
+
+  </main>
+</div>
+
+<!-- ── Toast notification ── -->
+<div class="toast" id="toast">
+  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+  <span id="toast-msg">Status updated successfully!</span>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>

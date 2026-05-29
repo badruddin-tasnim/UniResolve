@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login — UniResolve</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div class="auth-page">
+
+    <!-- ===== LEFT PANEL ===== -->
+    <div class="auth-panel-left">
+
+      <!-- Logo -->
+      <a href="index.html" class="logo">
+        <span class="logo-icon"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M8.00008 6V9H5.00008V6H8.00008ZM3.00008 4V11H10.0001V4H3.00008ZM13.0001 4H21.0001V6H13.0001V4ZM13.0001 11H21.0001V13H13.0001V11ZM13.0001 18H21.0001V20H13.0001V18ZM10.7072 16.2071L9.29297 14.7929L6.00008 18.0858L4.20718 16.2929L2.79297 17.7071L6.00008 20.9142L10.7072 16.2071Z"></path></svg></span>
+        UniResolve
+      </a>
+
+      <!-- Tagline -->
+      <div class="auth-left-content">
+        <h2>Your campus issues,<br>resolved faster.</h2>
+        <p>
+          Log in to view your submitted complaints, track their progress, and stay updated — all in one place.
+        </p>
+
+        <!-- Feature list -->
+        <div style="margin-top: 2.5rem; display: flex; flex-direction: column; gap: 1rem;">
+          <div style="display:flex; align-items:center; gap:0.875rem;">
+            <div style="width:32px; height:32px; border-radius:50%; background:rgba(29,107,243,0.25); display:flex; align-items:center; justify-content:center; flex-shrink:0;">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.9)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+            </div>
+            <span style="color:rgba(255,255,255,0.7); font-size:0.9rem;">Submit complaints in under 2 minutes</span>
+          </div>
+          <div style="display:flex; align-items:center; gap:0.875rem;">
+            <div style="width:32px; height:32px; border-radius:50%; background:rgba(29,107,243,0.25); display:flex; align-items:center; justify-content:center; flex-shrink:0;">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.9)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+            </div>
+            <span style="color:rgba(255,255,255,0.7); font-size:0.9rem;">Real-time status updates on all issues</span>
+          </div>
+          <div style="display:flex; align-items:center; gap:0.875rem;">
+            <div style="width:32px; height:32px; border-radius:50%; background:rgba(29,107,243,0.25); display:flex; align-items:center; justify-content:center; flex-shrink:0;">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.9)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+            </div>
+            <span style="color:rgba(255,255,255,0.7); font-size:0.9rem;">Direct communication with administration</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bottom note -->
+      <div class="auth-left-footer">
+        <p>© 2025 UniResolve. All rights reserved.</p>
+      </div>
+    </div>
+
+    <!-- ===== RIGHT PANEL ===== -->
+    <div class="auth-panel-right">
+      <div class="auth-form-wrap">
+
+        <!-- Header -->
+        <div class="auth-form-header">
+          <h1>Welcome back</h1>
+          <p>Enter your credentials to access your account.</p>
+        </div>
+
+        <!-- Role Picker -->
+        <div style="display:flex; background:var(--bg); border:1.5px solid var(--border); border-radius:var(--radius-sm); padding:4px; margin-bottom:1.75rem;">
+          <button type="button" id="role-student" onclick="selectRole('student')" style="flex:1; padding:0.55rem; border:none; border-radius:5px; font-family:'Figtree',sans-serif; font-size:0.875rem; font-weight:600; cursor:pointer; transition:all 0.2s ease; background:var(--bg-white); color:var(--primary); box-shadow:0 1px 4px rgba(15,45,92,0.1);">
+            🎓 Student
+          </button>
+          <button type="button" id="role-admin" onclick="selectRole('admin')" style="flex:1; padding:0.55rem; border:none; border-radius:5px; font-family:'Figtree',sans-serif; font-size:0.875rem; font-weight:600; cursor:pointer; transition:all 0.2s ease; background:transparent; color:var(--text-muted);">
+            🛠️ Administrator
+          </button>
+        </div>
+
+        <!-- Form -->
+        <form id="login-form">
+          <div class="form-group">
+            <label class="form-label" for="email">Email Address</label>
+            <input
+              type="email"
+              id="email"
+              class="form-control"
+              placeholder="student@university.edu"
+              required
+            >
+          </div>
+
+          <div class="form-group" style="margin-bottom: 1.75rem;">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 0.5rem;">
+              <label class="form-label" for="password" style="margin-bottom:0;">Password</label>
+              <a href="forgot-password.html" id="forgot-password-link" style="font-size:0.8rem; color:var(--primary); font-weight:500; text-decoration:none;">Forgot Password?</a>
+            </div>
+            <input
+              type="password"
+              id="password"
+              class="form-control"
+              placeholder="••••••••"
+              required
+            >
+          </div>
+
+
+          <!-- Hidden field — stores selected role (student / admin) for app.js -->
+          <input type="hidden" id="selected-role" name="role" value="student">
+
+          <button type="submit" class="btn btn-primary" style="width:100%; padding: 0.75rem; font-size: 0.95rem;">
+            Sign In
+          </button>
+        </form>
+
+        <!-- Divider -->
+        <div id="auth-divider" style="display:flex; align-items:center; gap:1rem; margin: 1.75rem 0;">
+          <div style="flex:1; height:1px; background:var(--border);"></div>
+          <span style="font-size:0.8rem; color:var(--text-muted); white-space:nowrap;">or</span>
+          <div style="flex:1; height:1px; background:var(--border);"></div>
+        </div>
+
+        <!-- Register link -->
+        <div id="auth-register-link" class="auth-footer-link">
+          Don't have an account? <a href="register.html">Register here</a>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard — UniResolve</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="dashboard-layout">
+
+  <!-- ===== SIDEBAR ===== -->
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <a href="admin-dashboard.html" class="logo">
+        <span class="logo-icon"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M8.00008 6V9H5.00008V6H8.00008ZM3.00008 4V11H10.0001V4H3.00008ZM13.0001 4H21.0001V6H13.0001V4ZM13.0001 11H21.0001V13H13.0001V11ZM13.0001 18H21.0001V20H13.0001V18ZM10.7072 16.2071L9.29297 14.7929L6.00008 18.0858L4.20718 16.2929L2.79297 17.7071L6.00008 20.9142L10.7072 16.2071Z"></path></svg></span>
+        UniResolve
+      </a>
+    </div>
+
+    <div class="sidebar-label">Admin Panel</div>
+
+    <nav>
+      <a href="admin-dashboard.html" class="nav-link active">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+        Overview
+      </a>
+      <a href="admin-complaints.html" class="nav-link">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+        All Complaints
+      </a>
+    </nav>
+
+    <div class="sidebar-footer">
+      <!-- Admin user chip -->
+      <div style="display:flex; align-items:center; gap:0.75rem; padding:0.875rem; background:rgba(255,255,255,0.06); border-radius:var(--radius-sm); margin-bottom:0.75rem;">
+        <div style="width:34px; height:34px; border-radius:50%; background:#4f46e5; display:flex; align-items:center; justify-content:center; flex-shrink:0;">
+          <span style="font-family:'Google Sans',sans-serif; font-size:0.85rem; font-weight:700; color:#fff;">AD</span>
+        </div>
+        <div style="min-width:0;">
+          <p style="font-size:0.875rem; font-weight:600; color:#fff; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">Admin</p>
+          <p style="font-size:0.75rem; color:rgba(255,255,255,0.45);">Administrator</p>
+        </div>
+      </div>
+      <button onclick="logout()" class="btn btn-outline" style="width:100%;">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+        Log Out
+      </button>
+    </div>
+  </aside>
+
+  <!-- ===== MAIN CONTENT ===== -->
+  <main class="main-content">
+
+    <!-- Admin Banner -->
+    <div class="admin-banner">
+      <div class="admin-banner-text">
+        <h1>Admin Dashboard</h1>
+        <p>System overview and complaint statistics for all students.</p>
+      </div>
+      <span class="admin-badge">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        Administrator Access
+      </span>
+    </div>
+
+    <!-- Stat Cards -->
+    <div class="stats-grid" style="margin-bottom:2rem;">
+
+      <div class="stat-card">
+        <div class="stat-card-icon blue">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+        </div>
+        <div>
+          <p class="stat-label">Total Issues</p>
+          <p class="stat-value" id="admin-stat-total">0</p>
+        </div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-card-icon amber">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        </div>
+        <div>
+          <p class="stat-label">Pending</p>
+          <p class="stat-value" id="admin-stat-pending">0</p>
+        </div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-card-icon indigo">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
+        </div>
+        <div>
+          <p class="stat-label">In Progress</p>
+          <p class="stat-value" id="admin-stat-in_progress">0</p>
+        </div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-card-icon green">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+        </div>
+        <div>
+          <p class="stat-label">Resolved</p>
+          <p class="stat-value" id="admin-stat-resolved">0</p>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Bottom row: Status breakdown + Recent complaints -->
+    <div style="display:grid; grid-template-columns:320px 1fr; gap:1.5rem; align-items:start;">
+
+      <!-- Status breakdown card -->
+      <div class="card">
+        <h2 style="font-size:1rem; font-weight:700; color:var(--text-heading); margin-bottom:1.5rem;">Status Breakdown</h2>
+
+        <!-- Visual bar -->
+        <div class="breakdown-bar" id="breakdown-bar">
+          <div class="breakdown-bar-segment" id="bar-pending"    style="background:#f59e0b; width:0%;"></div>
+          <div class="breakdown-bar-segment" id="bar-inprogress" style="background:#4f46e5; width:0%;"></div>
+          <div class="breakdown-bar-segment" id="bar-resolved"   style="background:#10b981; width:0%;"></div>
+        </div>
+
+        <!-- Legend -->
+        <div style="display:flex; flex-direction:column; gap:0.875rem; margin-top:1.25rem;">
+
+          <div style="display:flex; align-items:center; justify-content:space-between;">
+            <div style="display:flex; align-items:center; gap:0.625rem;">
+              <span style="width:10px; height:10px; border-radius:50%; background:#f59e0b; flex-shrink:0;"></span>
+              <span style="font-size:0.875rem; color:var(--text-body); font-weight:500;">Pending</span>
+            </div>
+            <div style="display:flex; align-items:center; gap:0.5rem;">
+              <span id="legend-pending-count" style="font-family:'Google Sans',sans-serif; font-size:0.9rem; font-weight:700; color:var(--text-heading);">0</span>
+              <span id="legend-pending-pct" style="font-size:0.78rem; color:var(--text-muted);">0%</span>
+            </div>
+          </div>
+
+          <div style="display:flex; align-items:center; justify-content:space-between;">
+            <div style="display:flex; align-items:center; gap:0.625rem;">
+              <span style="width:10px; height:10px; border-radius:50%; background:#4f46e5; flex-shrink:0;"></span>
+              <span style="font-size:0.875rem; color:var(--text-body); font-weight:500;">In Progress</span>
+            </div>
+            <div style="display:flex; align-items:center; gap:0.5rem;">
+              <span id="legend-progress-count" style="font-family:'Google Sans',sans-serif; font-size:0.9rem; font-weight:700; color:var(--text-heading);">0</span>
+              <span id="legend-progress-pct" style="font-size:0.78rem; color:var(--text-muted);">0%</span>
+            </div>
+          </div>
+
+          <div style="display:flex; align-items:center; justify-content:space-between;">
+            <div style="display:flex; align-items:center; gap:0.625rem;">
+              <span style="width:10px; height:10px; border-radius:50%; background:#10b981; flex-shrink:0;"></span>
+              <span style="font-size:0.875rem; color:var(--text-body); font-weight:500;">Resolved</span>
+            </div>
+            <div style="display:flex; align-items:center; gap:0.5rem;">
+              <span id="legend-resolved-count" style="font-family:'Google Sans',sans-serif; font-size:0.9rem; font-weight:700; color:var(--text-heading);">0</span>
+              <span id="legend-resolved-pct" style="font-size:0.78rem; color:var(--text-muted);">0%</span>
+            </div>
+          </div>
+
+        </div>
+
+        <div style="margin-top:1.5rem; padding-top:1.25rem; border-top:1px solid var(--border-light);">
+          <a href="admin-complaints.html" class="btn btn-primary" style="width:100%; justify-content:center;">
+            Manage All Complaints
+          </a>
+        </div>
+      </div>
+
+      <!-- Recent complaints table -->
+      <div class="table-container">
+        <div class="table-header">
+          <h2 style="font-size:1rem; font-weight:700; color:var(--text-heading);">Recent Complaints</h2>
+          <a href="admin-complaints.html" style="font-size:0.82rem; font-weight:600; color:var(--primary);">View all →</a>
+        </div>
+
+        <table>
+          <thead>
+            <tr>
+              <th style="width:38%;">Complaint</th>
+              <th>Student</th>
+              <th>Status</th>
+              <th>Date</th>
+              <th style="text-align:right;">Action</th>
+            </tr>
+          </thead>
+          <tbody id="admin-recent-tbody">
+            <!-- Dynamically populated by app.js -->
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+    <!-- end grid -->
+
+  </main>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>
