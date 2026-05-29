@@ -211,16 +211,38 @@ function updateBreakdown(pending, inProgress, resolved) {
 }
 
 // Toast helper
-window.showToast = function(message) {
-    const toast = document.getElementById('toast');
-    const toastMsg = document.getElementById('toast-msg');
-    if (toast && toastMsg) {
-        toastMsg.textContent = message;
-        toast.classList.add('show');
-        setTimeout(() => toast.classList.remove('show'), 3000);
-    } else {
-        alert(message);
+window.showToast = function(message, isError = false) {
+    let toast = document.getElementById('toast');
+    let toastMsg = document.getElementById('toast-msg');
+    
+    if (!toast) {
+        toast = document.createElement('div');
+        toast.id = 'toast';
+        toast.className = 'toast';
+        
+        toastMsg = document.createElement('span');
+        toastMsg.id = 'toast-msg';
+        toast.appendChild(toastMsg);
+        
+        document.body.appendChild(toast);
     }
+    
+    if (isError) {
+        toast.style.background = '#dc2626'; // Red for errors
+    } else {
+        toast.style.background = '#16a34a'; // Green for successes
+    }
+    
+    toastMsg.textContent = message;
+    toast.classList.add('show');
+    
+    if (window.toastTimeout) {
+        clearTimeout(window.toastTimeout);
+    }
+    
+    window.toastTimeout = setTimeout(() => {
+        toast.classList.remove('show');
+    }, 3000);
 };
 
 // DOM Content Loaded Handler
@@ -237,7 +259,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                          path.endsWith('forgot-password.html') || path.endsWith('reset-password.html');
     
     if (!isPublicPage && !token) {
-        alert('You must log in to access this page.');
+        showToast('You must log in to access this page.', true);
         window.location.href = 'login.html';
         return;
     }
@@ -617,7 +639,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                 const data = await response.json();
                 
                 if (!response.ok) {
-                    alert(data.error || 'Login failed. Please try again.');
+                    showToast(data.error || 'Login failed. Please try again.', true);
                     return;
                 }
                 
@@ -635,7 +657,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                 }
             } catch (err) {
                 console.error('Login error:', err);
-                alert('Connection error. Is the server running?');
+                showToast('Connection error. Is the server running?', true);
             }
         });
     }
@@ -674,7 +696,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             const confirmPassword = document.getElementById('confirm-password').value;
             
             if (password !== confirmPassword) {
-                alert('Passwords do not match.');
+                showToast('Passwords do not match.', true);
                 return;
             }
             
@@ -688,15 +710,17 @@ document.addEventListener('DOMContentLoaded', async () => {
                 const data = await response.json();
                 
                 if (!response.ok) {
-                    alert(data.error || 'Registration failed.');
+                    showToast(data.error || 'Registration failed.', true);
                     return;
                 }
                 
-                alert('Account registered successfully! Please log in.');
-                window.location.href = 'login.html';
+                showToast('Account registered successfully! Please log in.');
+                setTimeout(() => {
+                    window.location.href = 'login.html';
+                }, 1500);
             } catch (err) {
                 console.error('Registration error:', err);
-                alert('Connection error. Is the server running?');
+                showToast('Connection error. Is the server running?', true);
             }
         });
     }
@@ -722,7 +746,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                 const data = await response.json();
                 
                 if (!response.ok) {
-                    alert(data.error || 'Submission failed.');
+                    showToast(data.error || 'Submission failed.', true);
                     return;
                 }
                 
@@ -732,7 +756,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                 }, 1500);
             } catch (err) {
                 console.error('Submit complaint error:', err);
-                alert('Connection error. Failed to submit.');
+                showToast('Connection error. Failed to submit.', true);
             }
         });
     }
@@ -755,7 +779,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             const comment = commentEl ? commentEl.value.trim() : '';
             
             if (!id) {
-                alert('No complaint ID found.');
+                showToast('No complaint ID found.', true);
                 return;
             }
             
@@ -769,7 +793,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                 const data = await response.json();
                 
                 if (!response.ok) {
-                    alert(data.error || 'Failed to update status.');
+                    showToast(data.error || 'Failed to update status.', true);
                     return;
                 }
                 
@@ -782,7 +806,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                 }, 1000);
             } catch (err) {
                 console.error('Update status error:', err);
-                alert('Connection error. Failed to update status.');
+                showToast('Connection error. Failed to update status.', true);
             }
         });
     }
